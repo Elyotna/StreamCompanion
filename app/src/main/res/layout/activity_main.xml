@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.streamhelper.streamhelper.MainActivity"
+    android:orientation="vertical"
+    >
+
+    <android.support.v7.widget.Toolbar android:id="@+id/tbMenu"
+        xmlns:application="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorActionbar">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/viewersView"
+                android:layout_weight="0.35"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/channelView"
+                android:layout_weight="0.45"
+                android:text="Not Connected"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:id="@+id/settingsButton"
+                android:layout_weight="0.2"
+                android:onClick="settingsClicked"/>
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <com.mobidevelop.spl.widget.SplitPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:spl="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        spl:orientation="vertical"
+        spl:splitterSize="12dip"
+        spl:splitterPosition="90%"
+        spl:splitterBackground="@drawable/splitter_bg_h"
+        android:id="@+id/spl">
+
+        <com.streamhelper.streamhelper.ScrollViewExt
+            android:id="@+id/scrollView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:fillViewport="true">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+        </com.streamhelper.streamhelper.ScrollViewExt>
+
+        <com.streamhelper.streamhelper.ScrollViewExt
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2" />
+        </com.streamhelper.streamhelper.ScrollViewExt>
+
+    </com.mobidevelop.spl.widget.SplitPaneLayout>
+
+</LinearLayout>

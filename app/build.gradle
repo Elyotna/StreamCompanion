@@ -1,0 +1,30 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion '25.0.0'
+    defaultConfig {
+        applicationId "com.streamhelper.streamhelper"
+        minSdkVersion 9
+        targetSdkVersion 22
+        versionCode 8
+        versionName '0.8.2'
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.koushikdutta.async:androidasync:2.+'
+    compile 'com.mobidevelop.spl:split-pane-layout:1.0.0'
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+}
