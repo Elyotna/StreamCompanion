@@ -17,6 +17,7 @@ package com.streamhelper.streamhelper;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar fontSizeSeekbar = null;
     private TextView fontSizeHelper = null;
     private CheckBox enableTACb = null;
+    private CheckBox displayDarkModeCb = null;
     private CheckBox displayFollowAlertsCb = null;
     private EditText taTokenText = null;
     private View adView;
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean autoscrollAlerts = true;
     private boolean displayFollowers = true;
     private boolean displayViewers = true;
+    private boolean displayDarkMode = false;
     private boolean displayTimestamps = false;
     private boolean enableTA = false;
     private boolean displayWarning = false;
@@ -103,8 +106,11 @@ public class MainActivity extends AppCompatActivity {
             displayFollowers = obj.getBoolean("displayFollowers");
             fontSize = obj.getInt("fontSize");
             enableTA = obj.getBoolean("enableTA");
+
             if (!obj.isNull("displayTimestamps"))
                 displayTimestamps = obj.getBoolean("displayTimestamps");
+
+            displayDarkModeCb = (CheckBox) adView.findViewById(R.id.displayDarkModeCheckbox);
 
             CheckBox displayViewersCb = (CheckBox) adView.findViewById(R.id.displayViewersCheckbox);
             displayViewersCb.setChecked(displayViewers);
@@ -120,6 +126,14 @@ public class MainActivity extends AppCompatActivity {
                 et.setText(obj.getString("twitchUser"));
                 tc.start(obj.getString("twitchUser"));
                 tv.setUser(obj.getString("twitchUser").toLowerCase());
+            }
+
+            if(obj.getBoolean("displayDarkMode")){
+                textViewChat.setBackgroundColor(Color.rgb(33,33,33));
+                textViewChat.setTextColor(Color.WHITE);
+                textViewAlerts.setBackgroundColor(Color.rgb(33,33,33));
+                textViewAlerts.setTextColor(Color.WHITE);
+                displayDarkModeCb.setChecked(true);
             }
 
             if (!obj.isNull("twitchAlertsToken")) {
@@ -237,8 +251,11 @@ public class MainActivity extends AppCompatActivity {
         adView = v;
         ad = builder.create();
 
-        displayFollowAlertsCb = (CheckBox) v.findViewById(R.id.displayFollowCheckbox);
+
         taTokenText = (EditText) v.findViewById(R.id.editText2);
+
+        displayFollowAlertsCb = (CheckBox) v.findViewById(R.id.displayFollowCheckbox);
+        displayDarkModeCb = (CheckBox) v.findViewById(R.id.displayDarkModeCheckbox);
         enableTACb = (CheckBox) v.findViewById(R.id.enableTACheckbox);
         enableTACb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -268,6 +285,29 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.show();
 
                 displayWarning = false;
+            }
+        });
+
+        displayDarkModeCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean b) {
+                if(!b) {
+                    textViewChat.setBackgroundColor(android.R.color.background_light);
+                    textViewAlerts.setBackgroundColor(android.R.color.background_light);
+                    sc.setBackgroundColor(android.R.color.background_light);
+                    sc2.setBackgroundColor(android.R.color.background_light);
+                    textViewChat.setTextColor(Color.rgb(132,132,132));
+                    textViewAlerts.setTextColor(Color.rgb(132,132,132));
+                    displayDarkMode = false;
+                    return;
+                }
+                sc.setBackgroundColor(Color.rgb(33,33,33));
+                sc2.setBackgroundColor(Color.rgb(33,33,33));
+                textViewChat.setBackgroundColor(Color.rgb(33,33,33));
+                textViewChat.setTextColor(Color.WHITE);
+                textViewAlerts.setBackgroundColor(Color.rgb(33,33,33));
+                textViewAlerts.setTextColor(Color.WHITE);
+                displayDarkMode = true;
             }
         });
 
@@ -379,6 +419,7 @@ public class MainActivity extends AppCompatActivity {
                     settings.put("displayTimestamps", displayTimestamps);
                     settings.put("fontSize", fontSize);
                     settings.put("enableTA", enableTA);
+                    settings.put("displayDarkMode", displayDarkMode);
 
                     if (tc.getUser() != null && tc.getUser().length() >= 4)
                         settings.put("twitchUser", tc.getUser());

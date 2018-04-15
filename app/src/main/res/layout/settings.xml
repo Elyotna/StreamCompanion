@@ -24,6 +24,13 @@
         android:id="@+id/displayTimestampsCheckbox"
         android:checked="false" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dark Mode"
+        android:id="@+id/displayDarkModeCheckbox"
+        android:checked="false" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
