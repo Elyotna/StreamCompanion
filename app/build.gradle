@@ -7,8 +7,8 @@ android {
         applicationId "com.streamhelper.streamhelper"
         minSdkVersion 9
         targetSdkVersion 22
-        versionCode 8
-        versionName '0.8.2'
+        versionCode 9
+        versionName '0.8.3'
     }
     buildTypes {
         release {
